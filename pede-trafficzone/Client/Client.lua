@@ -2,9 +2,16 @@ if Config.Framework == "QBCORE" then
   QBCore = exports['qb-core']:GetCoreObject()
 elseif Config.Framework == "ESX" then
   ESX = exports["es_extended"]:getSharedObject()
+  while ESX.GetPlayerData().job == nil do
+		Citizen.Wait(10)
+	end
+
+	ESX.PlayerData = ESX.GetPlayerData()
 else
   print("ERROR: FRAMEWORK CONFIG!")
 end
+
+
 
 local PlayerJob = {}
 
@@ -30,14 +37,13 @@ end)
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
-  PlayerData = xPlayer
+	ESX.PlayerData = xPlayer
 end)
 
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
-    PlayerData.job = job
+	ESX.PlayerData.job = job
 end)
-
 
 
 RegisterNetEvent("trafficzone:openMenu")
@@ -50,22 +56,23 @@ RegisterNetEvent("checkUserJob")
 AddEventHandler('checkUserJob', function()
 if Config.Framework == "QBCORE" then
     Citizen.Wait(0)
-    if PlayerJob.name == Config.RequiredJob then
+    ESX.PlayerData.job = job
+    if job.name == Config.RequiredJob then
             TriggerEvent("hasJOB")
         else
             Citizen.Wait(0)
     end
 else if Config.Framework == "ESX" then
-  local _source = source
-  local xPlayer = ESX.GetPlayerFromId(_source)
-    Citizen.Wait(0)
-    if xPlayer.job.name == Config.RequiredJobs then
+  Citizen.Wait(0)
+  print(ESX.PlayerData.job.name)
+    if ESX.PlayerData.job.name == Config.RequiredJob then
+      Citizen.Wait(0)
             TriggerEvent("hasJOB")
         else
             Citizen.Wait(0)
             end
+          end
         end
-    end
 end)
 lib.registerContext({
     id = 'traffic_zone_menu',

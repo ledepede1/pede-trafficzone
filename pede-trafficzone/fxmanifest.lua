@@ -9,6 +9,7 @@ version '1.0'
 file'Config.ini'
 
 lua54 'yes'
+shared_script '@es_extended/imports.lua'
 shared_script '@ox_lib/init.lua'
 
 client_scripts {
