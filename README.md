@@ -8,11 +8,11 @@ A FiveM script that enables your servers police to make taffic zones.
 <p>OX-LIB:</p>
 
 ## Functions:
-<p>- Open the menu with both command and keybind.
-- Stop traffic in a radius the player choose.
-- Create custom traffic zone with player choosen Max Speed and Radius.
-- Remove current traffic zone.
-- Checks job (ESX, QB job name can be configured.)</p>
+<p>- Open the menu with both command and keybind.</p>
+<p>- Stop traffic in a radius the player choose.</p>
+<p>- Create custom traffic zone with player choosen Max Speed and Radius.</p>
+<p>- Remove current traffic zone.</p>
+<p>- Checks job (ESX, QB job name can be configured.)</p>
 
 <p>Almost everything about notifications can be configured.</p>
 
