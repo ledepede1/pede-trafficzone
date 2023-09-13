@@ -64,7 +64,6 @@ if Config.Framework == "QBCORE" then
     end
 else if Config.Framework == "ESX" then
   Citizen.Wait(0)
-  print(ESX.PlayerData.job.name)
     if ESX.PlayerData.job.name == Config.RequiredJob then
       Citizen.Wait(0)
             TriggerEvent("hasJOB")
