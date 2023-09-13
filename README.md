@@ -4,6 +4,9 @@ A FiveM script that enables your servers police to make taffic zones.
 # Information
 <p>This script is right now working with 'ESX', 'QB' and in the future it will also be standalone and using VRP.</p>
 
+## Requirements:
+<p>OX-LIB:</p>
+
 <p>Functions:</p>
 <p>- Open the menu with both command and keybind.
 - Stop traffic in a radius the player choose.
