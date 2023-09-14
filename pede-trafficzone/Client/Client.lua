@@ -55,13 +55,14 @@ end)
 RegisterNetEvent("checkUserJob")
 AddEventHandler('checkUserJob', function()
 if Config.Framework == "QBCORE" then
+QBCore.Functions.GetPlayerData(function(PlayerData)
     Citizen.Wait(0)
-    ESX.PlayerData.job = job
-    if job.name == Config.RequiredJob then
+    if PlayerData.job.name == Config.RequiredJob then
             TriggerEvent("hasJOB")
         else
             Citizen.Wait(0)
     end
+  end)
 else if Config.Framework == "ESX" then
   Citizen.Wait(0)
     if ESX.PlayerData.job.name == Config.RequiredJob then
@@ -73,6 +74,12 @@ else if Config.Framework == "ESX" then
           end
         end
 end)
+
+RegisterNetEvent('pede:removeBlip')
+AddEventHandler('pede:removeBlip', function()
+        RemoveBlip(blip)
+end)
+
 lib.registerContext({
     id = 'traffic_zone_menu',
     title = Config.MenuTitle,
@@ -86,6 +93,9 @@ lib.registerContext({
                 {type = 'number', label = Config.StopTrafficRadiusText, description = Config.StopTrafficRadiusTextDescription, required = true, icon = Config.StopTrafficRadiusTextIcon},
               })     
               TriggerEvent("createFullSTOP", input[1]);
+              blip = AddBlipForRadius(GetEntityCoords(GetPlayerPed(-1)),40.0)
+              SetBlipAlpha(blip, 128)
+              SetBlipColour(blip, 1)
         end,
       },
       {
@@ -99,13 +109,20 @@ lib.registerContext({
               })
             if input[2] == 0 then
               TriggerEvent("trafficZoneCUSTOM", input[1], input[2]);
-            
+              blip = AddBlipForRadius(GetEntityCoords(GetPlayerPed(-1)),40.0)
+              SetBlipAlpha(blip, 128)
+              SetBlipColour(blip, 1)
             else if input[2] >= 4 then
               TriggerEvent("trafficZoneCUSTOM", input[1], input[2]);
-
+              blip = AddBlipForRadius(GetEntityCoords(GetPlayerPed(-1)),40.0)
+              SetBlipAlpha(blip, 128)
+              SetBlipColour(blip, 1)
               else if input[2] < 4 then
                 -- Dont change when under 4 the npcs will start to drive backwards it pretty anoying!
                 TriggerEvent("trafficZoneLess4", input[1])
+                blip = AddBlipForRadius(GetEntityCoords(GetPlayerPed(-1)),40.0)
+                SetBlipAlpha(blip, 128)
+                SetBlipColour(blip, 1)
                 end
               end
             end
@@ -117,10 +134,12 @@ lib.registerContext({
         icon = Config.RemoveZoneIcon,
         onSelect = function()
             TriggerEvent("clearTrafficZONE");
+            TriggerServerEvent("removeBlipSERVER");
         end,
       },
     }
   })
+
 
 RegisterNetEvent("notify")
 AddEventHandler('notify', function(title, description, position, backgroundColor, fontColor, descriptionColor, icon, iconColor)
@@ -139,3 +158,4 @@ AddEventHandler('notify', function(title, description, position, backgroundColor
     iconColor = iconColor
 })
 end)
+

@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Framework = "ESX" -- "QBCORE" or "ESX"
+Config.Framework = "QBCORE" -- "QBCORE" or "ESX"
 
 Config.RequiredJob = "police"
 
