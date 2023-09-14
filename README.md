@@ -13,6 +13,8 @@ A FiveM script that enables your servers police to make taffic zones.
 <p>- Create custom traffic zone with player choosen Max Speed and Radius.</p>
 <p>- Remove current traffic zone.</p>
 <p>- Checks job (ESX, QB job name can be configured.)</p>
+<p>- Sends chat messages on creating zones and removing</p>
+<p>- Blips when creating zones</p>
 
 <p>Almost everything about notifications can be configured.</p>
 
