@@ -1,14 +1,19 @@
-if Config.Framework == "QBCORE" then
-  QBCore = exports['qb-core']:GetCoreObject()
-elseif Config.Framework == "ESX" then
-  ESX = exports["es_extended"]:getSharedObject()
-  while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
-	end
+  if Config.Framework == "Standalone" then
+    print("Initiated to Standalone")
 
-	ESX.PlayerData = ESX.GetPlayerData()
-else
-  print("ERROR: FRAMEWORK CONFIG!")
+  else if Config.Framework == "QBCORE" then
+    QBCore = exports['qb-core']:GetCoreObject()
+
+  elseif Config.Framework == "ESX" then
+    ESX = exports["es_extended"]:getSharedObject()
+    while ESX.GetPlayerData().job == nil do
+      Citizen.Wait(10)
+    end
+
+    ESX.PlayerData = ESX.GetPlayerData()
+  else
+    print("ERROR: FRAMEWORK CONFIG!")
+  end
 end
 
 
@@ -70,18 +75,16 @@ else if Config.Framework == "ESX" then
             TriggerEvent("hasJOB")
         else
             Citizen.Wait(0)
-            end
           end
+        else if Config.Framework == "Standalone" then 
+          Citizen.Wait(0)
+          TriggerEvent("hasJOB")
+        else
+          Citizen.Wait(0)
         end
-	else if Config.Framework == "Standalone" then
-	      Citizen.Wait(0)
-            TriggerEvent("hasJOB")	
-	else
-            Citizen.Wait(0)
-            end
-          end
         end
-end)
+      end
+    end)
 
 RegisterNetEvent('pede:removeBlip')
 AddEventHandler('pede:removeBlip', function()
