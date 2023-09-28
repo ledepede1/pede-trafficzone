@@ -2,7 +2,7 @@
 A FiveM script that enables your servers police to make taffic zones.
 
 # Information
-<p>This script is right now working with 'ESX', 'QB' and in the future it will also be standalone and using VRP.</p>
+<p>This script is right now working with 'ESX', 'QB', 'Standalone' and in the future it will also be using VRP.</p>
 
 ## Requirements:
 <p>OX-LIB:</p>
