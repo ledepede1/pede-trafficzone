@@ -73,6 +73,14 @@ else if Config.Framework == "ESX" then
             end
           end
         end
+	else if Config.Framework == "Standalone" then
+	      Citizen.Wait(0)
+            TriggerEvent("hasJOB")	
+	else
+            Citizen.Wait(0)
+            end
+          end
+        end
 end)
 
 RegisterNetEvent('pede:removeBlip')
