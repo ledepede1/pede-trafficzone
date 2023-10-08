@@ -22,3 +22,4 @@ A FiveM script that enables your servers police to make taffic zones.
 
 #### Config
 ![config](https://github.com/ledepede1/pede-trafficzone/assets/142742362/43b8ffde-3c42-4a38-8bb6-dea55b6b52a4)
+![config2](https://github.com/ledepede1/pede-trafficzone/assets/142742362/251789d6-4a02-4d60-a625-2519f4ee5651)
