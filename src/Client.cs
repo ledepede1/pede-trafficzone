@@ -1,14 +1,9 @@
-﻿
+
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using System;
 using System.Collections.Generic;
 using Config.Reader;
-using CitizenFX.Core.NaturalMotion;
-using System.Drawing;
-using System.Xml.Linq;
-using System.Net.NetworkInformation;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Client {
     public class Main : BaseScript {
@@ -29,10 +24,12 @@ namespace Client {
                 TriggerEvent("checkUserJob");
             }), false);
         }
+
         [EventHandler("hasJOB")]
         public void hasJob() {
             TriggerEvent("trafficzone:openMenu");
         }
+
         public void createTrafficZ(int radius, float maxSpeed) {
             // KPH or MPH
             int kphmph = config.GetIntValue("Notifications", "kphmph", 1);
@@ -59,6 +56,7 @@ namespace Client {
             // 
             dynamic maxRadius = config.GetStringValue("Traffic", "maxRadius", "fallback");
             dynamic maxSPEED = config.GetStringValue("Traffic", "maxSPEED", "fallback");
+            dynamic chatMessages = config.GetStringValue("Base", "chatMessages", "fallback");
 
             if (radius > Convert.ToInt32(maxRadius)) {
                 TriggerEvent("notify", trafficTitle, exceededMaxRadius + " " +  maxRadius, NotificationPosistion, "#141517", "#C1C2C5", "#909296", iconError, "#880808");
@@ -72,7 +70,9 @@ namespace Client {
                         if (zoneCreated == false) {
                             int speedzone = API.AddSpeedZoneForCoord(API.GetEntityCoords(API.PlayerPedId(), true).X, API.GetEntityCoords(API.PlayerPedId(), true).Y, API.GetEntityCoords(API.PlayerPedId(), true).Z, radius, maxSpeed / kphmph, true);
                             speedzoneD = speedzone;
-                            chatmessage(maxSpeed, false);
+                            if (chatMessages == "true") {
+                                chatmessage(maxSpeed, false);
+                            }
                             if (maxSpeed != 0) {
                                 TriggerEvent("notify", trafficTitle, creatingTrafficZoneDescription + " " + radius + " " + creatingTrafficZoneDescription2 + " " + maxSpeed, NotificationPosistion, "#141517", "#C1C2C5", "#909296", iconSuccsess, "#009E60");
                             }
@@ -117,12 +117,15 @@ namespace Client {
             // Config for notifications
             dynamic removedCurrentZone = config.GetStringValue("Notifications", "removedCurrentZone", "fallback");
             dynamic playerDontHaveCurrentZone = config.GetStringValue("Notifications", "playerDontHaveCurrentZone", "fallback");
+            dynamic chatMessages = config.GetStringValue("Base", "chatMessages", "fallback");
 
             if (zoneCreated == true) {
                 API.RemoveSpeedZone(speedzoneD);
                 TriggerEvent("notify", trafficTitle, removedCurrentZone, NotificationPosistion, "#141517", "#C1C2C5", "#909296", iconSuccsess, "#009E60");
                 zoneCreated = false;
-                chatmessage(-1, true);
+                if (chatMessages == "true") {
+                    chatmessage(-1, true);
+                }
             }
             else if (zoneCreated == false) {
                 TriggerEvent("notify", trafficTitle, playerDontHaveCurrentZone, NotificationPosistion, "#141517", "#C1C2C5", "#909296", iconError, "#880808");
@@ -147,6 +150,7 @@ namespace Client {
             dynamic traficZoneRemovedChatMessage2 = config.GetStringValue("Notifications", "traficZoneRemovedChatMessage2", "fallback");
 
             dynamic policeLabelChatMessage = config.GetStringValue("Notifications", "policeLabelChatMessage", "fallback");
+
 
             var vector_p6 = Vector3.Zero;
             var streetName = new uint();
